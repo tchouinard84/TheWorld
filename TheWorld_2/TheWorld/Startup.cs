@@ -10,6 +10,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using TheWorld.Models;
 using TheWorld.Services;
 
 namespace TheWorld
@@ -51,6 +52,8 @@ namespace TheWorld
             {
                 // Implement a real Mail Service
             }
+
+            services.AddDbContext<WorldContext>();
 
             services.AddMvc();
         }
