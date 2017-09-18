@@ -54,12 +54,12 @@ namespace TheWorld
             }
 
             services.AddDbContext<WorldContext>();
-
+            services.AddTransient<WorldContextSeedData>();
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, WorldContextSeedData seeder)
         {
             if (env.IsEnvironment("Development"))
             {
@@ -85,6 +85,8 @@ namespace TheWorld
                 await context.Response.WriteAsync("<html><body><h2>Hello World!</h2></body></html>");
             });
             */
+
+            seeder.EnsureSeedData().Wait();
         }
     }
 }
