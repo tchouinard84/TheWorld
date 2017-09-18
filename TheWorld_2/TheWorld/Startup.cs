@@ -56,6 +56,7 @@ namespace TheWorld
             services.AddDbContext<WorldContext>();
             services.AddScoped<IWorldRepository, WorldRepository>();
             services.AddTransient<WorldContextSeedData>();
+            services.AddLogging();
             services.AddMvc();
         }
 
@@ -66,7 +67,9 @@ namespace TheWorld
             {
                 // This is nice for development, but don't want to show to the end user
                 app.UseDeveloperExceptionPage();
+                loggerFactory.AddDebug(LogLevel.Information);
             }
+            else { loggerFactory.AddDebug(LogLevel.Error); }
 
             //app.UseDefaultFiles();  // If index.html exists, use it
             app.UseStaticFiles();   // I will deliver any file that lives in wwwroot folder
